@@ -3,19 +3,23 @@ export default defineNuxtConfig({
   // Nuxt 4 directory structure and features
   // https://nuxt.com/docs/getting-started/upgrade#testing-nuxt-4
   future: { compatibilityVersion: 4 },
-  // Nuxt Modules
-  // https://nuxt.com/modules
-  modules: ['@nuxthub/core', '@nuxt/eslint', 'nuxt-primevue'],
+  modules: ['@nuxthub/core', '@nuxt/eslint', 'nuxt-primevue', "@sidebase/nuxt-auth"],
+  runtimeConfig: {
+    authSecret: process.env.NUXT_AUTH_SECRET,
+    auth0Secret: process.env.NUXT_AUTH0_SECRET,
+    auth0ClientId: process.env.NUXT_AUTH0_CLIENT_ID,
+    auth0Issuer: process.env.NUXT_AUTH0_ISSUER,
+  },
   hub: {
     database: true,
     kv: true,
     cache: true,
   },
-  nitro: {
-    experimental: {
-      // Enable Server API documentation within NuxtHub
-      openAPI: true
-    }
+  auth: {
+    provider: {
+      type: 'authjs'
+    },
+    globalAppMiddleware: true
   },
   // Development
   devtools: { enabled: true },

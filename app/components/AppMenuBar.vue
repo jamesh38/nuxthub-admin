@@ -34,12 +34,15 @@
           </InputIcon>
           <InputText placeholder="Search" />
         </IconField>
+        <Avatar :image="auth0?.user?.image || undefined" shape="circle" />
       </div>
     </template>
   </Menubar>
 </template>
 
 <script setup lang="ts">
+const { data: auth0, signOut } = useAuth();
+
 const items = ref([
   {
     label: "Home",
@@ -90,9 +93,11 @@ const items = ref([
     ],
   },
   {
-    label: "Contact",
-    icon: "pi pi-envelope",
-    badge: 3,
+    label: "Logout",
+    icon: "pi pi-door",
+    command: () => {
+      signOut({ callbackUrl: "/login" });
+    },
   },
 ]);
 </script>
